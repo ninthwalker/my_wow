@@ -320,7 +320,6 @@ function QuickCraft:Craft(recipeID, numCasts)
 	end
 end
 
--- this isnt working currently to correctly wipe it. debug some other time.
 function QuickCraft:WipeSavedSchematics()
     QuickCraftRedonePerCharacterDB.schematics = {}
     QuickCraftRedonePerCharacterDB.lastCraft = {}
@@ -329,13 +328,6 @@ function QuickCraft:WipeSavedSchematics()
     self.db.char = QuickCraftRedonePerCharacterDB
 
     print("All saved recipes wiped for this character!")
-
-    -- Force WoW to save the empty DB immediately
-    if type(QuickCraftRedonePerCharacterDB) == "table" then
-        for k in pairs(QuickCraftRedonePerCharacterDB) do
-            QuickCraftRedonePerCharacterDB[k] = QuickCraftRedonePerCharacterDB[k] or {}
-        end
-    end
 end
 
 function QuickCraft:ExecuteChatCommands(command)
@@ -344,6 +336,11 @@ function QuickCraft:ExecuteChatCommands(command)
 		self.db.global.debug = not self.db.global.debug
 		Util.debug = self.db.global.debug
 		print("Debug Mode:", self.db.global.debug)
+		return
+	end
+
+	if command == "wipe" then
+		QuickCraft:WipeSavedSchematics()
 		return
 	end
 
@@ -370,12 +367,7 @@ function QuickCraft:ExecuteChatCommands(command)
 
 		return
 	end
-
-	if action == "wipe" then
-		QuickCraft:WipeSavedSchematics()
-		return
-	end
-
+	
 	print("Usage:")
 	print("  /qc debug - Turn on/off debugging mode")
 	print("  /qc craft <recipeID> <opt: numCrafts> - Craft the recipe with last-used reagents")
