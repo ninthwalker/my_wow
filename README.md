@@ -6,14 +6,14 @@ Author: me
 Desc: various automated stuff to help with concentration crafter alts  
 
 ## ConcentrationAlert
-Author: me
+Author: me  
 Source: [ConcentrationAlert](https://github.com/ninthwalker/ConcentrationAlert)  
-Desc: Get notified out of game for concentration status
+Desc: Get notified out of game for concentration status  
 
 ## TLDRAuto
-Author: me
-Desc: Makes doing Shadowlands missions even faster
-Dependency: TLDR Missions Addon
+Author: me  
+Desc: Makes doing Shadowlands missions even faster  
+Dependency: TLDR Missions Addon  
 DependencySource: [TLDRMissions](https://github.com/TLDRMissions/TLDRMissions)  
 
 ## QuickCraftRedone
