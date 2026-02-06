@@ -131,12 +131,12 @@ local function CraftIt(event)
     local rootPath = CraftSimAPI:GetCraftSim().CRAFTQ.frame.content.queueTab.content
 
     -- clear all
-    C_Timer.After(2, function()
+    C_Timer.After(1, function()
          rootPath.clearAllButton.clickCallback()
     end)
 
     -- wait 2 sec and Queue favorites button
-    C_Timer.After(2, function()
+    C_Timer.After(1, function()
          rootPath.queueFavoritesButton.clickCallback()
     end)
 
