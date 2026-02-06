@@ -1,0 +1,13 @@
+## Interface: 120001, 120000
+## Title: |cffF35F05ConcentrationCrafter|r
+## Author: Echellon
+## Version: 1.0.0
+## Category: Professions
+## Notes: Concentration Crating Helpers
+## X-Repo: https://github.com/ninthwalker/my_wow
+## IconTexture: Interface\Icons\ui_concentration
+## DefaultState: Enabled
+## SavedVariables: ConcentrationCrafterDB
+
+# Base Addon File
+ConcentrationCrafter.lua
