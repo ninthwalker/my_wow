@@ -3,8 +3,8 @@
 ## Notes: Crafting Automation
 ## Version: v1.1.0
 ## IconTexture: Interface\AddOns\QuickCraft\Icon.blp
-## SavedVariables: QuickCraftDBRedone
-## SavedVariablesPerCharacter: QuickCraftPerCharacterDBRedone
+## SavedVariables: QuickCraftRedoneDB
+## SavedVariablesPerCharacter: QuickCraftRedonePerCharacterDB
 ## Category-enUS: Professions
 ## Category-deDE: Berufe
 ## Category-esES: Profesiones
