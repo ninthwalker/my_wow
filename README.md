@@ -19,4 +19,4 @@ DependencySource: [TLDRMissions](https://github.com/TLDRMissions/TLDRMissions)
 ## QuickCraftRedone
 Author: cybertk  
 Source: [cybertk](https://github.com/cybertk/QuickCraft)  
-Desc: Modified his addon and did a hacky job of updating for modnight for my use cases  
+Desc: Modified his addon and did a hacky job of updating for Midnight for my use cases  
