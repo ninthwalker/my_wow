@@ -9,5 +9,4 @@
 ## DefaultState: Enabled
 ## SavedVariables: ConcentrationCrafterDB
 
-# Base Addon File
 ConcentrationCrafter.lua
