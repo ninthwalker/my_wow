@@ -255,8 +255,7 @@ function QuickCraft:SaveSchematic(recipeSpellID, craftingReagents, enchantItem, 
     )
 
     self.db.char.schematics[schematic.recipe] = schematic
-	-- dont save schematic globally for now.
-	--self.db.global.schematics[schematic.recipe] = schematic
+	self.db.global.schematics[schematic.recipe] = schematic
 	local recipeLink = C_TradeSkillUI.GetRecipeLink(schematic.recipe)
     print("|cff00ff00Saved schematic:", recipeLink .." [" .. schematic.recipe .. "] Total reagents:", #savedReagents, "|r")
 
