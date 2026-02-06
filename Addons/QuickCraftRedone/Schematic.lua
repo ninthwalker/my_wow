@@ -85,7 +85,7 @@ function Schematic:ConvertQuickCraftReagents()
 
     -- Get saved DB reagents for this spell
     local savedReagents = {}
-    local dbEntry = QuickCraftPerCharacterDB.schematics[self.spell]
+    local dbEntry = QuickCraftRedonePerCharacterDB.schematics[self.spell]
     if dbEntry and dbEntry.reagents then
         savedReagents = dbEntry.reagents
     end
