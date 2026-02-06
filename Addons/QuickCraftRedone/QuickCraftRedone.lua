@@ -21,9 +21,9 @@ function QuickCraft:CreateSaveButton()
 
     btn:SetSize(createButton:GetSize())
     btn:SetPoint("BOTTOM", createButton, "TOP", 0, 12)
-    btn:SetText("Save Recipe")
     btn:GetFontString():SetFont("Fonts\\FRIZQT__.TTF", 11)
-    btn:SetAlpha(1)
+	btn:SetAlpha(1)
+	btn:SetText("Save Recipe")
     btn:Hide()
 
     ----------------------------------------------------------------
@@ -40,8 +40,8 @@ function QuickCraft:CreateSaveButton()
         if self.isCancelState then return end
 
         self.isCancelState = true
-        self:SetText("Cancel Craft")
-        self:SetAlpha(0.75) -- visual feedback
+		self:SetAlpha(0.8)
+		self:SetText("Cancel Craft")
         self:SetAttribute("macrotext", "/stopcasting")
     end)
 
@@ -51,6 +51,7 @@ function QuickCraft:CreateSaveButton()
     local resetter = CreateFrame("Frame")
     resetter:RegisterEvent("UNIT_SPELLCAST_STOP")
     resetter:RegisterEvent("UNIT_SPELLCAST_FAILED")
+	resetter:RegisterEvent("UNIT_SPELLCAST_FAILED_QUIET")
     resetter:RegisterEvent("UNIT_SPELLCAST_INTERRUPTED")
     resetter:RegisterEvent("UNIT_SPELLCAST_CHANNEL_STOP")
 
@@ -59,8 +60,8 @@ function QuickCraft:CreateSaveButton()
         if not btn.isCancelState then return end
 
         btn.isCancelState = false
-        btn:SetText("Save Recipe")
-        btn:SetAlpha(1)
+		btn:SetAlpha(1)
+		btn:SetText("Save Recipe")
         btn:SetAttribute("macrotext", "/run ProfessionsFrame.CraftingPage.CreateButton:Click()")
 
         -- brief disable to prevent spam / double execution
@@ -117,6 +118,17 @@ function QuickCraft:CreateSaveButton()
     end)
 
     self.saveButton = btn
+end
+
+function QuickCraft:ResetSaveButton()
+    local btn = self.saveButton
+    if not btn then return end
+
+    btn.isCancelState = false
+    btn:SetText("Save Recipe")
+    btn:SetAlpha(1)
+    btn:SetAttribute("macrotext", "/run ProfessionsFrame.CraftingPage.CreateButton:Click()")
+    btn:Enable()
 end
 
 function QuickCraft:Init()
@@ -320,6 +332,7 @@ function QuickCraft:Craft(recipeID, numCasts)
 	end
 end
 
+-- this isnt working currently to correctly wipe it. debug some other time.
 function QuickCraft:WipeSavedSchematics()
     QuickCraftRedonePerCharacterDB.schematics = {}
     QuickCraftRedonePerCharacterDB.lastCraft = {}
@@ -367,7 +380,7 @@ function QuickCraft:ExecuteChatCommands(command)
 
 		return
 	end
-	
+
 	print("Usage:")
 	print("  /qc debug - Turn on/off debugging mode")
 	print("  /qc craft <recipeID> <opt: numCrafts> - Craft the recipe with last-used reagents")
@@ -413,11 +426,13 @@ if _G["QuickCraft"] == nil then
 	end)
 
 	QuickCraft:RegisterEvent("TRADE_SKILL_SHOW", function()
+		QuickCraft:CreateSaveButton()          -- ensure button exists
+		QuickCraft:ResetSaveButton()           -- always reset on show
+
 		hooksecurefunc(ProfessionsFrame.CraftingPage.SchematicForm, "Init", function()
 			QuickCraft:RestoreSchematic()
+			QuickCraft:ResetSaveButton()       -- also reset whenever schematic initializes
 		end)
-
-		QuickCraft:CreateSaveButton()
 
 		QuickCraft:UnregisterEvent("TRADE_SKILL_SHOW")
 	end)
