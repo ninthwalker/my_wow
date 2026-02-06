@@ -1,0 +1,13 @@
+## Interface: 120001, 120000
+## Title: |cffF35F05TLDRAuto|r
+## Author: Echellon
+## Version: 1.0.0
+## Category: Professions
+## Dependencies: TLDRMissions
+## Notes: Helps Automated the TLDR Missions addon
+## X-Repo: https://github.com/ninthwalker/my_wow
+## IconTexture: Interface\Icons\Spell_AnimaBastion_Orb
+## DefaultState: Enabled
+## SavedVariablesPerCharacter: TLDRAutoDB
+
+TLDRAuto.lua
