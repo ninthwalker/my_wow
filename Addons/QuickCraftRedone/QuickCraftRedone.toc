@@ -1,0 +1,28 @@
+## Interface: 120001, 120000, 110100, 110105
+## Title: QuickCraftRedone
+## Notes: Crafting Automation
+## Version: v1.1.0
+## IconTexture: Interface\AddOns\QuickCraft\Icon.blp
+## SavedVariables: QuickCraftDBRedone
+## SavedVariablesPerCharacter: QuickCraftPerCharacterDBRedone
+## Category-enUS: Professions
+## Category-deDE: Berufe
+## Category-esES: Profesiones
+## Category-esMX: Profesiones
+## Category-frFR: Métiers
+## Category-itIT: Professioni
+## Category-koKR: 전문 기술
+## Category-ptBR: Profissões
+## Category-ruRU: Профессии
+## Category-zhCN: 专业
+## Category-zhTW: 專業技能
+## X-Website: x
+## X-Curse-Project-ID: x
+## X-Wago-ID: x
+## X-WoWI-ID: x
+
+Util.lua
+
+Schematic.lua
+QuickCraftButton.lua
+QuickCraftRedone.lua
