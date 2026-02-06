@@ -3,6 +3,9 @@ local frame = CreateFrame("Frame")
 
 local DB = ConcentrationCrafterDB
 
+-- prevents double-using the same bank slot
+local transferInProgress = false
+
 --------------------------------------------------
 -- Init
 --------------------------------------------------
@@ -60,6 +63,7 @@ end
 -- Deposit logic
 --------------------------------------------------
 local function DepositToWarbandBank(event)
+    if transferInProgress then return end
     if not DB.enabled then return end
     if not C_Bank.CanViewBank(2) then return end -- 2 = warband bank
 
@@ -72,13 +76,12 @@ local function DepositToWarbandBank(event)
     end
 
     -- find next empty warband bank slot
-    local emptySlot = nil
+    local emptySlot
     for warbandBag = Enum.BagIndex.AccountBankTab_1, Enum.BagIndex.AccountBankTab_5 do
         local numSlots = C_Container.GetContainerNumSlots(warbandBag)
         for slot = 1, numSlots do
-            local item = C_Container.GetContainerItemID(warbandBag, slot)
-            if not item then
-                emptySlot = {bag = warbandBag, slot = slot}
+            if not C_Container.GetContainerItemID(warbandBag, slot) then
+                emptySlot = { bag = warbandBag, slot = slot }
                 break
             end
         end
@@ -90,14 +93,17 @@ local function DepositToWarbandBank(event)
         return
     end
 
-    -- transfer the first item in the list
-    local firstItem = itemXfer[1]
-    C_Container.PickupContainerItem(firstItem.bag, firstItem.slot)
+    -- move ONE item only
+    local item = itemXfer[1]
+    transferInProgress = true
+
+    C_Container.PickupContainerItem(item.bag, item.slot)
     C_Container.PickupContainerItem(emptySlot.bag, emptySlot.slot)
 
-    -- print transfer result
-    local name = firstItem.itemName or ("ItemID " .. firstItem.itemID)
-    print("|cff00ff00CC: Transferred |cffffff00" .. name .. "|cff00ff00 to Warband Bank Tab " .. emptySlot.bag .. " slot " .. emptySlot.slot .. "|r")
+    local name = item.itemName or ("ItemID " .. item.itemID)
+    print("|cff00ff00CC: Transferred |cffffff00" .. name ..
+        "|cff00ff00 to Warband Bank Tab " .. emptySlot.bag ..
+        " slot " .. emptySlot.slot .. "|r")
 end
 
 --------------------------------------------------
@@ -155,14 +161,20 @@ frame:RegisterEvent("TRADE_SKILL_CLOSE")
 frame:SetScript("OnEvent", function(_, event, arg1)
     if event == "ADDON_LOADED" and arg1 == ADDON_NAME then
         InitDB()
+
     elseif event == "BANKFRAME_OPENED" then
         C_Timer.After(0.5, function()
             DepositToWarbandBank(event)
         end)
+
     elseif event == "BAG_UPDATE_DELAYED" then
+        -- allow next transfer
+        transferInProgress = false
+
         C_Timer.After(0.25, function()
             DepositToWarbandBank(event)
         end)
+
     elseif event == "TRADE_SKILL_SHOW" then
         C_Timer.After(2, function()
             CraftIt(event)
@@ -170,11 +182,10 @@ frame:SetScript("OnEvent", function(_, event, arg1)
     end
 end)
 
+
 --------------------------------------------------
 -- Slash Command
 --------------------------------------------------
-SLASH_CONCENTRATIONCRAFTER1 = "/cc"
-
 SLASH_CONCENTRATIONCRAFTER1 = "/cc"
 
 SlashCmdList["CONCENTRATIONCRAFTER"] = function(msg)
