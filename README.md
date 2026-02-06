@@ -4,6 +4,8 @@ WoW addons/snippets that aren't really ready for primetime or ones i just made f
 ## ConcentrationCrafter
 Author: me  
 Desc: various automated stuff to help with concentration crafter alts  
+- Auto Deposits specific items you want to the Warbank
+- Craftsim: When opened, automatically clears and scans favorite crafts
 
 ## ConcentrationAlert
 Author: me  
