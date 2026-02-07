@@ -3,10 +3,10 @@ WoW addons/snippets that aren't really ready for primetime or ones i just made f
   
   
 ## Watchtower Flags
-Author: me
-Desc Code (Flag) Snippets for Watchtower addon
-Source: [Watchtower Flags](https://gist.github.com/ninthwalker/e370e4a2a73fd8d3917b40a639d010e8)
-DependencySource: [Watchtower Addon](https://github.com/Slackluster/Watchtower)
+Author: me  
+Desc Code (Flag) Snippets for Watchtower addon  
+Source: [Watchtower Flags](https://gist.github.com/ninthwalker/e370e4a2a73fd8d3917b40a639d010e8)  
+DependencySource: [Watchtower Addon](https://github.com/Slackluster/Watchtower)  
 
 ## ConcentrationCrafter
 Author: me  
