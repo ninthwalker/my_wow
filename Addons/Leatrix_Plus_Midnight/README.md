@@ -1,6 +1,6 @@
 # Leatrix_Plus.lua modified for midnight intro/silvermoon up to Fairbreeze 
 
-Leatrix already works for single gossip and 1 quest reward options. The lua file was extended to include the following specific use cased for midnight intro leveling:  
+Leatrix already works for single gossip and 1 quest reward options. The lua file was extended to include the following specific use cases for midnight intro leveling:  
 
 ## Adds the specific gossip options for the following. Only occurs if below level 81.
 - Image of Lady Liadrin
