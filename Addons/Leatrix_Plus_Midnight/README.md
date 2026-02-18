@@ -19,4 +19,4 @@ Occurs while under level 86
 ## Instructions:
 1. make a copy of the current Leatrix_Plus.lua to restore later if needed.
 2. copy the  `Leatrix_Plus.lua ` file from this repo and place where the current file resides in your Leatrix_Plus addon folder.
-| Note that updating the addon via curse/etc will overwrite this modded leatrix file.
+> Note that updating the addon via curse/etc will overwrite this modded leatrix file and you will need to copy this file back into the directory again.
