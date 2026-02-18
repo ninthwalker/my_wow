@@ -29,3 +29,8 @@ Source: [ConcentrationAlert](https://github.com/ninthwalker/ConcentrationAlert)
 Author: cybertk  
 Source: [cybertk](https://github.com/cybertk/QuickCraft)  
 Desc: Modified his addon and did a hacky job of updating for Midnight for my use cases  
+
+## Leatrix_Plus_Midnight
+Author: Leatrix  
+Source: [Leatrix Plus](https://www.curseforge.com/wow/addons/leatrix-plus)  
+Desc: Modified the addon for use with Midnight leveling  
