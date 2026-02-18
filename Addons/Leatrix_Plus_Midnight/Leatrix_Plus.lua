@@ -3313,8 +3313,8 @@
 						-- Complete quest
 						if GetNumQuestChoices() <= 1 then
 							GetQuestReward(GetNumQuestChoices(1))
-						-- select 1st item if player under level 86 and 3 or less options
-						elseif GetNumQuestChoices() <= 3 and UnitLevel("player") < 86 then
+						-- select 1st item if player under level 81 and 3 or less options
+						elseif GetNumQuestChoices() <= 3 and UnitLevel("player") < 81 then
 							GetQuestReward(GetNumQuestChoices(1))
 						end
 					end
@@ -14520,3 +14520,4 @@
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Transparency", 340, -132)
 	LeaPlusLC:MakeSL(LeaPlusLC[pg], "PlusPanelAlpha", "Drag to set the transparency of the Leatrix Plus panel.", 0, 1, 0.1, 340, -152, "%.1f")
+
