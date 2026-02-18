@@ -13,7 +13,7 @@ Adds the specific gossip options for the following. Only occurs if below level 8
 - Innkeeper (click npc once for quest, then again to auto-set hearthstone)  
 
 # Quest completion
-Occurs while under level 86
+Occurs while under level 81
 - Rewards: Currently selects the 1st option all the time if 3 or less rewards
 
 ## Instructions:
