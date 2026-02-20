@@ -1,4 +1,4 @@
-﻿----------------------------------------------------------------------
+----------------------------------------------------------------------
 -- 	Leatrix Plus 12.0.04 (11th February 2026)
 ----------------------------------------------------------------------
 
@@ -1603,25 +1603,22 @@
 
 		if LeaPlusLC["FasterMovieSkip"] == "On" then
 
-			-- Allow space bar, escape key and enter key to cancel cinematic without confirmation
-			CinematicFrame:HookScript("OnKeyDown", function(self, key)
-				if key == "ESCAPE" then
-					if CinematicFrame:IsShown() and CinematicFrame.closeDialog and CinematicFrameCloseDialogConfirmButton then
-						CinematicFrameCloseDialog:Hide()
+			-- removed oringal code that required esc/space to be pressed, this auto skips now for midnight
+			local sceneFrame = CreateFrame("Frame")
+			sceneFrame:RegisterEvent("CINEMATIC_START")
+			sceneFrame:RegisterEvent("PLAY_MOVIE")
+			sceneFrame:SetScript("OnEvent", function(self, event)
+				if event == "CINEMATIC_START" then
+					if CinematicFrame.isRealCinematic then
+						StopCinematic()
+					elseif CanCancelScene() then
+						CancelScene()
 					end
-				end
-			end)
-			CinematicFrame:HookScript("OnKeyUp", function(self, key)
-				if key == "SPACE" or key == "ESCAPE" or key == "ENTER" then
-					if CinematicFrame:IsShown() and CinematicFrame.closeDialog and CinematicFrameCloseDialogConfirmButton then
-						CinematicFrameCloseDialogConfirmButton:Click()
-					end
-				end
-			end)
-			MovieFrame:HookScript("OnKeyUp", function(self, key)
-				if key == "SPACE" or key == "ESCAPE" or key == "ENTER" then
-					if MovieFrame:IsShown() and MovieFrame.CloseDialog and MovieFrame.CloseDialog.ConfirmButton then
-						MovieFrame.CloseDialog.ConfirmButton:Click()
+				elseif event == "PLAY_MOVIE" then
+					if MovieFrame then
+						if MovieFrame and MovieFrame:IsShown() then
+							MovieFrame:StopMovie()
+						end
 					end
 				end
 			end)
@@ -2539,17 +2536,24 @@
 				end
 			end
 
-			-- Function to skip gossip when multiple options. Only for when there is an ID to match on.
+			-- Function to skip gossip when multiple options
 			local function SkipGossipMultiple(optionID)
 				local gossipInfoTable = C_GossipInfo.GetOptions()
 				if not gossipInfoTable then return end
 
 				for index, info in ipairs(gossipInfoTable) do
 					if info.gossipOptionID == optionID then
-						-- Modern API path
+						C_GossipInfo.SelectOption(info.gossipOptionID)
+						return
+					elseif optionID == "flag1" and info.flags == 1 then
+						print("flag1")
+						C_GossipInfo.SelectOption(info.gossipOptionID)
+						return
+					elseif optionID == "flag0" and info.flags == 0 then
 						C_GossipInfo.SelectOption(info.gossipOptionID)
 						return
 					end
+					print("wtf")
 				end
 			end
 
@@ -2592,7 +2596,7 @@
 							return
 						end
 						-- midnight intro
-						if UnitLevel("player") < 81 then
+						if UnitLevel("player") < 82 then
 							-- Image of Lady Liadrin
 							if npcID == "241677" then
 								SkipGossipMultiple(133523)
@@ -2601,30 +2605,52 @@
 							elseif npcID == "236959" then
 								SkipGossipMultiple(132388)
 								return
+
+							--- Silvermoon
 							-- Lor'themar Theron
 							elseif npcID == "235787" then
 								SkipGossipMultiple(132632)
 								return
-							-- Banker
+							-- Banker. Horde/allaince diff, use flag
 							elseif npcID == "239664" then
-								SkipGossipMultiple(132676)
+								SkipGossipMultiple("flag1")
 								return
-							-- Skymaster
+							-- Skymaster Horde/allaince diff, use flag
 							elseif npcID == "239639" then
-								SkipGossipMultiple(132674)
+								SkipGossipMultiple("flag1")
 								return
 							-- Valeera Sanguinar
 							elseif npcID == "242381" then
 								SkipGossipMultiple(133099)
 								return
-							-- Innkeeper
+							-- horde Magistrix Nizara
+							elseif npcID == "240940" then
+								SkipGossipMultiple(134014)
+								return
+							-- Innkeeper Horde/allaince diff, use flag
 							elseif npcID == "239630" then
-								SkipGossipMultiple(132666)
+								SkipGossipMultiple("flag1")
 								-- set hearthstone
-								SkipGossipMultiple(132668)
-								if StaticPopup1Button1 and StaticPopup1Button1:IsShown() then
-									C_Timer.After(0.5, function() StaticPopup1Button1:Click() end)
+								if UnitLevel("player") < 81 then
+									SkipGossipMultiple(132668)
+									if StaticPopup1Button1 and StaticPopup1Button1:IsShown() then
+										C_Timer.After(0.5, function() StaticPopup1Button1:Click() end)
+									end
 								end
+								return
+
+						    --- Fairbreeze
+							-- Orweyna
+							elseif npcID == "236743" then
+								SkipGossipMultiple("flag1")
+								return
+							-- Orweyna part2
+							elseif npcID == "236903" then
+								SkipGossipMultiple("flag1")
+								return
+							-- Arator part2, we want to skip, it's flag 0
+							elseif npcID == "236716" then
+								SkipGossipMultiple("flag0")
 								return
 							end
 						end
@@ -3313,7 +3339,7 @@
 						-- Complete quest
 						if GetNumQuestChoices() <= 1 then
 							GetQuestReward(GetNumQuestChoices(1))
-						-- select 1st item if player under level 81 and 3 or less options.
+						-- select 1st item if player under level 81 and 3 or less options
 						elseif GetNumQuestChoices() <= 3 and UnitLevel("player") < 81 then
 							GetQuestReward(GetNumQuestChoices(1))
 						end
@@ -14520,5 +14546,3 @@
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Transparency", 340, -132)
 	LeaPlusLC:MakeSL(LeaPlusLC[pg], "PlusPanelAlpha", "Drag to set the transparency of the Leatrix Plus panel.", 0, 1, 0.1, 340, -152, "%.1f")
-
-
