@@ -3,18 +3,26 @@
 Leatrix already works for single gossip and 1 quest reward options. The lua file was extended to include the following specific use cases for midnight intro leveling:  
 
 ## Gossip selection
-Adds the specific gossip options for the following. Only occurs if below level 81.
+Adds the specific gossip options for the following. Only occurs if below level 82.
+### Intro:
 - Image of Lady Liadrin
 - Arator
+### Silvermoon
 - Lor'themar Theron
 - Banker
 - Skymaster
 - Valeera Sanguinar
-- Innkeeper (click npc once for quest, then again to auto-set hearthstone)  
+- Innkeeper (click npc once for quest, then again to auto-set hearthstone)
+### Fairbreeze
+- Orweyna
+- Arator
 
 # Quest completion
 Occurs while under level 81
 - Rewards: Currently selects the 1st option all the time if 3 or less rewards
+
+# Cutscene
+- Automatically skips now, no need for a key press
 
 ## Instructions:
 1. make a copy of the current Leatrix_Plus.lua to restore later if needed.
