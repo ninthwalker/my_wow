@@ -2553,7 +2553,6 @@
 						C_GossipInfo.SelectOption(info.gossipOptionID)
 						return
 					end
-					print("wtf")
 				end
 			end
 
@@ -14546,3 +14545,4 @@
 
 	LeaPlusLC:MakeTx(LeaPlusLC[pg], "Transparency", 340, -132)
 	LeaPlusLC:MakeSL(LeaPlusLC[pg], "PlusPanelAlpha", "Drag to set the transparency of the Leatrix Plus panel.", 0, 1, 0.1, 340, -152, "%.1f")
+
